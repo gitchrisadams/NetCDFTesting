@@ -228,7 +228,3 @@ with netCDF4.Dataset(url, mode='r') as nc:
     # print("water_surface_height_above_reference_datum:")
     # waterSurfaceHeightAbvRefDatValues1 = waterSurfaceHeightAbvRefDat[0:10:1]
     # print(waterSurfaceHeightAbvRefDatValues1)
-
-
-
-

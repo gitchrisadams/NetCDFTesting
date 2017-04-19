@@ -68,14 +68,15 @@ def findStandardTimeVars(url):
 			else:
 				print("No matches found.")
 
-	except Exception as e:
+	except:
+		pass
 		print("Data file is unable to be opened.")
 
 # Test the program:
 def main():
 	# Store URL of remote data:
 	# Tests that pass:
-	url = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRLCK8H-agg.ncml'
+	url1 = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRLCK8H-agg.ncml'
 	url2 = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRLCK8M-agg.ncml'
 	url3 = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRTVBM-agg.ncml'
 
@@ -87,8 +88,8 @@ def main():
 	url5 = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRWSTPTH-agg.ncml'
 	url6 = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRPIER84-agg.ncml'
 
-	# Fails, unable to read file. TODO: fix this to display error if can't read.
-	url7 = 'http://sos.maracoos.org/stable/sos/hrecos/stationHRUTICA-agg.ncml'
+	# Fails, unable to read file. 
+	# url7 = 'http://sos.maracoos.org/stable/sos/hrecos/stationHRUTICA-agg.ncml'
 
 	# Tests that pass:
 	url8 = 'http://sos.maracoos.org/stable/dodsC/hrecos/stationHRREXBR-agg.ncml'
@@ -114,7 +115,7 @@ def main():
 
 	# Call function to search url.
 	# param: The url file to search.
-	findStandardTimeVars(url15)
+	findStandardTimeVars(url1)
 
 if __name__ == '__main__':
 	sys.exit(main())
