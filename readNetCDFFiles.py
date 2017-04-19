@@ -172,6 +172,63 @@ print("")
 # Close the root group:
 nc.close()
 
+# With opens the file, then automatically will be closed if error and/or when exits:
+with netCDF4.Dataset(url, mode='r') as nc:
+    # Output everything in the file:
+#     print(nc)
+    
+    # Output only the global attributes:
+#     print(nc.ncattrs())
+#     print("")
+    
+    # Output a single global attribute:
+    # Method 1:
+#     print(nc.instrument)
+    
+    # Output a single global attribute:
+    # Method 2:(identical to above)
+#     print(nc.getncattr('instrument'))
+
+    # Output all the dimensions in the file:
+#     print(nc.dimensions.keys())
+
+    # Load information from a variable into an object:
+    # Ysi6560RoxVar = nc.variables['YSI_6560_ROX']
+#     print(Ysi6560RoxVar)
+#     print("")
+    
+    # Ouput variable attributes for Ysi6560RoxVar a.k.a ['YSI_6560_ROX']
+#     print Ysi6560RoxVar.ncattrs()
+#     print("")
+    
+    # Access a single variable attribute:
+    # Method1:
+#     print(Ysi6560RoxVar.long_name)
+    
+     # Access a single variable attribute:
+    #Method2: Using the String name:(Identical to above)
+#     print(Ysi6560RoxVar.getncattr('long_name'))
+    
+    
+    # Print data stored in the variable:
+    # [:] represents an array slice that includes the entire array:
+    # This one has no data so will display emtpy array:
+#     print(Ysi6560RoxVar[:6])
+    
+    # New Example to demonstrate getting to data.
+    # Load information from a variaable into an object:
+    # waterSurfaceHeightAbvRefDat = nc.variables['water_surface_height_above_reference_datum']
+    
+    # Output all variables associated w/ water_surface_height_above_reference_datum
+    # print(waterSurfaceHeightAbvRefDat)
+    # print("")
+    
+    # Store the Water Surface height in a variable and print it:
+    # [0:10:1] is [start:End:Step]
+    # print("water_surface_height_above_reference_datum:")
+    # waterSurfaceHeightAbvRefDatValues1 = waterSurfaceHeightAbvRefDat[0:10:1]
+    # print(waterSurfaceHeightAbvRefDatValues1)
+
 
 
 
