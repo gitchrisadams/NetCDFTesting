@@ -14,58 +14,62 @@ import sys
 # param: url is the url/file to search through.
 # http://sos.maracoos.org/stable/dodsC/hrecos/stationHRWSTPTH-agg.ncml for example.
 def findStandardTimeVars(url):
-	# With opens the file, then automatically will be closed if error and/or when exits:
-	with netCDF4.Dataset(url, mode='r') as nc:
+	try:
+		# With opens the file, then automatically will be closed if error and/or when exits:
+		with netCDF4.Dataset(url, mode='r') as nc:
 
-		# Keeping track of Test messages displayed.
-		messageCount = 0;
+			# Keeping track of Test messages displayed.
+			messageCount = 0;
 
-		# Loop through all the variables in the file:
-		for key in nc.variables:
+			# Loop through all the variables in the file:
+			for key in nc.variables:
 
-			# Store the variable dimensions:
-			dimOfKey = nc.variables[key].dimensions
+				# Store the variable dimensions:
+				dimOfKey = nc.variables[key].dimensions
 
-			# Determine if there is a time dimension:
-			# Ignore the actual 'time' key itself.
-			if('time' in dimOfKey):
-				if(key != 'time'):
+				# Determine if there is a time dimension:
+				# Ignore the actual 'time' key itself.
+				if('time' in dimOfKey):
+					if(key != 'time'):
 
-					# Determine if there is a standard_name in this key:
-					if("standard_name" in nc.variables[key].ncattrs()):
+						# Determine if there is a standard_name in this key:
+						if("standard_name" in nc.variables[key].ncattrs()):
 
-						# Determine if there is an instrument in this key:
-						if("instrument" in nc.variables[key].ncattrs()):
-							# It has an instument and time checked so now we have to
-							# see if there is a variable named w/ the same name as the 
-							# value of instrument.
-							# 1. Get the all the variables:
-							# 2. Get the Instrument value:
-							# 3. Compare instrument string name to variable name such as YSI_6560_ROX: 
-							# Get all the variabl keys:
-							allVariableKeys = nc.variables.keys()
+							# Determine if there is an instrument in this key:
+							if("instrument" in nc.variables[key].ncattrs()):
+								# It has an instument and time checked so now we have to
+								# see if there is a variable named w/ the same name as the 
+								# value of instrument.
+								# 1. Get the all the variables:
+								# 2. Get the Instrument value:
+								# 3. Compare instrument string name to variable name such as YSI_6560_ROX: 
+								# Get all the variable keys:
+								allVariableKeys = nc.variables.keys()
 
-							# Get the instrument value:
-							keyTemp = str(key)
-							tempVar = nc.variables[keyTemp]
+								# Get the instrument value:
+								keyTemp = str(key)
+								tempVar = nc.variables[keyTemp]
 
-							if(tempVar.instrument in allVariableKeys):
-								print("Test Passed! Key name: " + key + " has instrument in list.")
-								print("Instrument Name: " + tempVar.instrument)
-								print("")
+								if(tempVar.instrument in allVariableKeys):
+									print("Test Passed! Key name: " + key + " has instrument in list.")
+									print("Instrument Name: " + tempVar.instrument)
+									print("")
 
-								# Increment counter to keep track of Test Passed messages.
-								messageCount+=1
-							else:
-								print("Test Failed! Key name: " + key + " does not have instrument in list.")
-								print("Instrument Name: " + tempVar.instrument)
-								print("")
+									# Increment counter to keep track of Test Passed messages.
+									messageCount+=1
+								else:
+									print("Test Failed! Key name: " + key + " does not have instrument in list.")
+									print("Instrument Name: " + tempVar.instrument)
+									print("")
 
-		# Message in case no matches are found in file:
-		if(messageCount > 0):
-			print("Done processing file.")
-		else:
-			print("No matches found.")
+			# Message in case no matches are found in file:
+			if(messageCount > 0):
+				print("Done processing file.")
+			else:
+				print("No matches found.")
+
+	except Exception as e:
+		print("Data file is unable to be opened.")
 
 # Test the program:
 def main():
@@ -110,7 +114,7 @@ def main():
 
 	# Call function to search url.
 	# param: The url file to search.
-	findStandardTimeVars(url19)
+	findStandardTimeVars(url15)
 
 if __name__ == '__main__':
 	sys.exit(main())
